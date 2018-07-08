@@ -20,7 +20,9 @@ Page({
     hourlyWeather: [],
     nowTemp:"",
     nowWeather:"",
-    nowWeatherBg:""
+    nowWeatherBg:"",
+    todayDate:"",
+    todayTemp:""
   },
   onPullDownRefresh(){
     this.getNow(()=>{
@@ -42,6 +44,7 @@ Page({
         console.log(res.data)
         this.setNow(result)
         this.setHourlyWeather(result)
+        this.setToday(result)
       },
       complete:()=>{
         callback && callback()
@@ -75,6 +78,18 @@ Page({
     hourlyWeather[0].time = '现在'
     this.setData({
       hourlyWeather: hourlyWeather
+    })
+  },
+
+  setToday(result){
+    let today = result.today
+    let date = new Date()
+    let y = date.getFullYear()
+    let m = date.getMonth() + 1
+    let d = date.getDate()    
+    this.setData({
+      todayTemp: today.minTemp + '°' + ' — ' + today.maxTemp + '°',
+      todayDate: y + '-' + m + '-' + d + ' 今天'
     })
   }
 })
