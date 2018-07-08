@@ -91,5 +91,11 @@ Page({
       todayTemp: today.minTemp + '°' + ' — ' + today.maxTemp + '°',
       todayDate: y + '-' + m + '-' + d + ' 今天'
     })
+  },
+
+  onTapTodayWeather(){
+    wx.navigateTo({
+      url: '/pages/list/list',
+    })
   }
 })
