@@ -4,6 +4,7 @@ const weatherMap = {
   'overcast':'阴',
   'lightrain':'小雨',
   'heavyrain': '大雨',
+  'snow': '雪',
 }
 const weatherColorMap = {
   'sunny': '#cbeeff',
