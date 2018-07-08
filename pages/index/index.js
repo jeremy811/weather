@@ -15,6 +15,12 @@ const weatherColorMap = {
 }
 
 Page({
+  data:{
+    forecast: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    nowTemp:"",
+    nowWeather:"",
+    nowWeatherBg:""
+  },
   onPullDownRefresh(){
     this.getNow(()=>{
       console.log("stop pull down")
