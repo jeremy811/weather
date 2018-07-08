@@ -1,5 +1,5 @@
 <view class="weather-wrapper">
-  <view class="temp">{{nowTemp}}°</view>
+  <view class="temp">{{nowTemp}}</view>
   <view class="weather">{{nowWeather}}</view>
   <image class="weather-bg" src="{{nowWeatherBg}}" mode="scaleToFill"></image>
 </view>
@@ -11,6 +11,10 @@
 
 <scroll-view scroll-x>
   <view class="forcast-list">
-  <view class="forcast-item" wx:for="{{forecast}}">{{item}}</view>
+    <view class="forcast-item" wx:for="{{hourlyWeather}}">
+      <view class= 'forecast-time'> {{item.time}}</view>
+      <image class= 'forecast-weather' src='{{item.iconPath}}'></image>
+      <view class= 'forecast-temp'>{{item.temp}}</view>
+    </view>
   </view>
 </scroll-view>
