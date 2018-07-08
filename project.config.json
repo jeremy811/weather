@@ -13,7 +13,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.0.4",
 	"appid": "wxd6650baa24a12e56",
-	"projectname": "DG",
+	"projectname": "weather",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
