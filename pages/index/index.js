@@ -33,7 +33,7 @@ Page({
     nowWeatherBg:"",
     todayDate:"",
     todayTemp:"",
-    city:"深圳",
+    city:"深圳市",
     locationTipsText:"点击获取当前位置",
     locationAuthType:UNPROMPTED
   },
@@ -49,26 +49,23 @@ Page({
         key: 'EAXBZ-33R3X-AA64F-7FIPQ-BY27J-5UF5B'
       });
       this.getNow()
-  },
-
-  onShow() {
-    wx.getSetting({
-      success: res => {
-        let auth = res.authSetting['scope.userLocation']
-        if (auth && this.data.locationAuthType != AUTHORIZED) {
+      wx.getSetting({
+        success: res => {
+          let auth = res.authSetting['scope.userLocation']
           this.setData({
-            locationAuthType: AUTHORIZED,
-            locationTipsText: AUTHORIZED_TIPS
+            locationAuthType: auth? AUTHORIZED:(false == auth)? UNAUTHORIZED : UNPROMPTED,
+            locationTipsText:auth? AUTHORIZED_TIPS: (false == auth)? UNAUTHORIZED_TIPS: UNPROMPTED_TIPS
           })
-        }
-        else if(UNPROMPTED != this.data.locationAuthType && !auth){
-          this.setData({
-            locationAuthType: UNAUTHORIZED,
-            locationTipsText: UNAUTHORIZED_TIPS
-          })
-        }
-      }
-    })
+          if(auth){
+            this.getCityAndWeather()
+          }
+          else{
+            this.getNow()
+          }
+        },
+        fail: function(res) {},
+        complete: function(res) {},
+      })
   },
 
   getNow(callback){
@@ -139,14 +136,21 @@ Page({
 
   onTapLocation() {
     if(UNAUTHORIZED == this.data.locationAuthType){
-      wx.openSetting()
+      wx.openSetting({
+        success: res => {
+          let auth = res.authSetting['scope.userLocation']
+          if(auth){
+            this.getCityAndWeather()
+          }
+        }
+      })
     }
     else {
-      this.getCurLocation()
+      this.getCityAndWeather()
     }
   },
 
-  getCurLocation(){
+  getCityAndWeather(){
     wx.getLocation({
       success: res => {
         console.log(res.latitude, res.longitude)
